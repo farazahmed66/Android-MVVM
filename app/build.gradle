@@ -85,7 +85,7 @@ dependencies {
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.12.0'
 
     // coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     // ssp and sdp
     implementation 'com.intuit.ssp:ssp-android:1.0.6'

@@ -1,7 +1,6 @@
 package com.eateasily.codewars.di
 
 import com.eateasily.codewars.network.HttpRequestInterceptor
-import com.eateasily.codewars.network.NetworkClient
 import com.eateasily.codewars.network.NetworkService
 import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
@@ -48,9 +47,9 @@ object NetworkModule {
         return retrofit.create(NetworkService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideNetworkClient(networkService: NetworkService): NetworkClient {
-        return NetworkClient(networkService)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideNetworkClient(networkService: NetworkService): NetworkClient {
+//        return NetworkClient(networkService)
+//    }
 }
