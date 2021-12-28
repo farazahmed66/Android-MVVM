@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eateasily.codewars">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CodeWars">
         <activity
-            android:name="com.eateasily.codewars.base.BaseActivity"
+            android:name=".ui.userdetails.UserDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".base.BaseActivity"
             android:exported="false" />
         <activity
             android:name=".ui.users.UserListActivity"
@@ -27,8 +30,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

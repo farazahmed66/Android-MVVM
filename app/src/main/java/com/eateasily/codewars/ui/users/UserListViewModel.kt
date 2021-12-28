@@ -2,6 +2,7 @@ package com.eateasily.codewars.ui.users
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.eateasily.codewars.models.User
 import com.eateasily.codewars.network.Resource
 import com.eateasily.codewars.repository.UserListRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,15 +16,15 @@ class UserListViewModel @Inject constructor(
     private val userListRepository: UserListRepository
 ) : ViewModel() {
 
-    private val _homeResponse = MutableStateFlow<Resource<Any>>(Resource.Empty)
-    val getHomeDataResponse: StateFlow<Resource<Any>> = _homeResponse
+    private val _homeResponse = MutableStateFlow<Resource<User>>(Resource.Empty)
+    val getHomeDataResponse: StateFlow<Resource<User>> = _homeResponse
 
 
-    fun homeDataRequest() = viewModelScope.launch {
+    fun searchUser(query: String) = viewModelScope.launch {
         try {
             _homeResponse.value = Resource.Loading
-            _homeResponse.value = userListRepository.getHomeResponse()
-        } catch (ex: Exception){
+            _homeResponse.value = userListRepository.searchUser(query)
+        }catch (ex: Exception){
             ex.printStackTrace()
         }
     }

@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CodeWars/app/src/main/res/drawable-v24/ic_arrow_left.xml" value="0.21944444444444444" />
+        <entry key="..\:/CodeWars/app/src/main/res/drawable-v24/ic_close.xml" value="0.21944444444444444" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/activity_base.xml" value="0.1" />
+        <entry key="..\:/CodeWars/app/src/main/res/layout/activity_user_details.xml" value="0.21875" />
+        <entry key="..\:/CodeWars/app/src/main/res/layout/activity_user_list.xml" value="0.176" />
+        <entry key="..\:/CodeWars/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/CodeWars/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
