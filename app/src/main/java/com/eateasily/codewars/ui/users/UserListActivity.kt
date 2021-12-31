@@ -1,5 +1,6 @@
 package com.eateasily.codewars.ui.users
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -12,6 +13,7 @@ import com.eateasily.codewars.base.BaseActivity
 import com.eateasily.codewars.databinding.ActivityUserListBinding
 import com.eateasily.codewars.models.User
 import com.eateasily.codewars.network.Resource
+import com.eateasily.codewars.ui.userdetails.UserDetailsActivity
 import com.google.android.material.snackbar.Snackbar
 import com.paulrybitskyi.persistentsearchview.PersistentSearchView
 import com.paulrybitskyi.persistentsearchview.adapters.model.SuggestionItem
@@ -133,6 +135,12 @@ class UserListActivity : BaseActivity() {
         binding.txvClan.text = "Clan: ${user.clan}"
         binding.txvHonor.text = "Honor: ${user.honor}"
         binding.txvPosition.text = "Position: ${user.leaderboardPosition}"
+
+        binding.cardUser.setOnClickListener {
+            val intent = Intent(this@UserListActivity, UserDetailsActivity::class.java )
+            intent.putExtra("userName", user.userName)
+            startActivity(intent)
+        }
     }
 
 }

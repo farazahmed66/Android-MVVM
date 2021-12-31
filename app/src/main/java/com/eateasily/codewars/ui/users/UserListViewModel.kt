@@ -21,13 +21,8 @@ class UserListViewModel @Inject constructor(
 
 
     fun searchUser(query: String) = viewModelScope.launch {
-        try {
             _homeResponse.value = Resource.Loading
             _homeResponse.value = userListRepository.searchUser(query)
-        }catch (ex: Exception){
-            ex.printStackTrace()
-        }
+
     }
-
-
 }

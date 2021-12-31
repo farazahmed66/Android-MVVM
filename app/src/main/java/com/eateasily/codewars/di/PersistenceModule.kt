@@ -29,12 +29,12 @@ object PersistenceModule {
     @Singleton
     fun provideAppDatabase(
         application: Application,
-        typeResponseConverter: TypeResponseConvertor
+//        typeResponseConverter: TypeResponseConvertor
     ): AppDatabase {
         return Room
             .databaseBuilder(application, AppDatabase::class.java, "StarWars.db")
             .fallbackToDestructiveMigration()
-            .addTypeConverter(typeResponseConverter)
+//            .addTypeConverter(typeResponseConverter)
             .build()
     }
 

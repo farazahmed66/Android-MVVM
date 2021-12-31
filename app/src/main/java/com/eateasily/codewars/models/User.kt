@@ -5,14 +5,14 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class User(
-    @field:Json(name = "username") val userName: String,
-    @field:Json(name = "name") val name: String,
-    @field:Json(name = "honor") val honor: String,
-    @field:Json(name = "clan") val clan: String,
-    @field:Json(name = "leaderboardPosition") val leaderboardPosition: Int,
-    @field:Json(name = "skills") val skills: List<String>,
+    @field:Json(name = "username") val userName: String?,
+    @field:Json(name = "name") val name: String?,
+    @field:Json(name = "honor") val honor: String?,
+    @field:Json(name = "clan") val clan: String?,
+    @field:Json(name = "leaderboardPosition") val leaderboardPosition: Int?,
+    @field:Json(name = "skills") val skills: List<String>?,
     @field:Json(name = "ranks") val ranks: Ranks,
-    @field:Json(name = "codeChallenges") val codeChallenges: CodeChallenges,
+    @field:Json(name = "getCompletedChallenges") val codeChallenges: CodeChallenges?,
     @field:Json(name = "Success", ignore = true) var isSuccess: Boolean = true,
     @field:Json(name = "reason", ignore = true) val reason: String = ""
 ) {

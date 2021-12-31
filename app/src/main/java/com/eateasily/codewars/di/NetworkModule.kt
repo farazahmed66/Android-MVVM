@@ -47,9 +47,4 @@ object NetworkModule {
         return retrofit.create(NetworkService::class.java)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideNetworkClient(networkService: NetworkService): NetworkClient {
-//        return NetworkClient(networkService)
-//    }
 }

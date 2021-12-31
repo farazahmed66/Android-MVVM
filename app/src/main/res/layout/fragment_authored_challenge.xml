@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.userdetails.completedchallenge.CompletedChallengeFragment">
-
+    tools:context=".ui.userdetails.authoredchallenge.AuthoredChallengeFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
@@ -14,7 +13,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/rcv_completed_challenge"
+            android:id="@+id/rcv_authored_challenge"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintHorizontal_bias="0.0"
