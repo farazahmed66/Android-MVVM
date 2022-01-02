@@ -14,13 +14,12 @@ In that screen the api will be called for challenge list where the pagination ha
 
 ### Libraries Used in this project
 
-Paging 3
-Room Db
-Dagger Hilt
-MVVM
-Kotlin Flow
-Coroutines
-Moshi
-persistentsearchview
-
+- Paging 3
+- Room Db
+- Dagger Hilt
+- MVVM
+- Kotlin Flow
+- Coroutines
+- Moshi
+- Persistentsearchview
 
