@@ -5,13 +5,15 @@
       <map>
         <entry key="..\:/CodeWars/app/src/main/res/drawable-v24/ic_arrow_left.xml" value="0.21944444444444444" />
         <entry key="..\:/CodeWars/app/src/main/res/drawable-v24/ic_close.xml" value="0.21944444444444444" />
-        <entry key="..\:/CodeWars/app/src/main/res/layout/activity_base.xml" value="0.1" />
+        <entry key="..\:/CodeWars/app/src/main/res/layout/activity_base.xml" value="0.176" />
+        <entry key="..\:/CodeWars/app/src/main/res/layout/activity_challenge_details.xml" value="0.19157608695652173" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/activity_user_details.xml" value="0.21875" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/activity_user_list.xml" value="0.176" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/challenge_item.xml" value="0.20833333333333334" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/fragment_authored_challenge.xml" value="0.21875" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/fragment_completed_challenge.xml" value="0.21875" />
         <entry key="..\:/CodeWars/app/src/main/res/layout/network_state_item.xml" value="0.20833333333333334" />
+        <entry key="..\:/CodeWars/app/src/main/res/layout/ui_authored_challenge_item.xml" value="0.19157608695652173" />
         <entry key="..\:/CodeWars/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/CodeWars/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
       </map>

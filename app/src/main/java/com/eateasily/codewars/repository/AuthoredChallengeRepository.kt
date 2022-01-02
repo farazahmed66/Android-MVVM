@@ -13,10 +13,11 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthoredChallengeRepository @Inject constructor(
-    private val networkService: NetworkService,
-    private val db: AppDatabase
+    private val networkService: NetworkService
 ) : BaseRepository() {
 
-
+    suspend fun getAuthoredChallenge(user: String) = safeApiCall {
+        networkService.getAuthoredChallenge(user)
+    }
 
 }

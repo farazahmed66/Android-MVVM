@@ -16,13 +16,13 @@ class UserListViewModel @Inject constructor(
     private val userListRepository: UserListRepository
 ) : ViewModel() {
 
-    private val _homeResponse = MutableStateFlow<Resource<User>>(Resource.Empty)
-    val getHomeDataResponse: StateFlow<Resource<User>> = _homeResponse
+    private val _userListResponse = MutableStateFlow<Resource<User>>(Resource.Empty)
+    val getUserDataResponse: StateFlow<Resource<User>> = _userListResponse
 
 
     fun searchUser(query: String) = viewModelScope.launch {
-            _homeResponse.value = Resource.Loading
-            _homeResponse.value = userListRepository.searchUser(query)
+        _userListResponse.value = Resource.Loading
+        _userListResponse.value = userListRepository.searchUser(query)
 
     }
 }

@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eateasily.codewars.databinding.ChallengeItemBinding
 import com.eateasily.codewars.models.UserChallengeData
 
-class CompletedChallengeAdapter(private val clicked: (String) -> Unit) :
+class CompletedChallengeAdapter(private val listener: () -> CompletedAdapterClickListener) :
     PagingDataAdapter<UserChallengeData, CompletedChallengeAdapter.ChallengeViewHolder>(
         ChallengeDiffCallback()
     ) {
-
 
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
         val data = getItem(position)
@@ -38,6 +37,10 @@ class CompletedChallengeAdapter(private val clicked: (String) -> Unit) :
             binding.txvName.text = data?.name
             binding.txvCompleted.text = data?.completedAt
             binding.txvSlug.text = data?.slug
+
+            binding.root.setOnClickListener {
+                listener.invoke().itemClicked(data!!)
+            }
 
         }
     }

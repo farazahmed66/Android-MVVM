@@ -1,5 +1,7 @@
 package com.eateasily.codewars.network
 
+import com.eateasily.codewars.models.AuthoredChallenge
+import com.eateasily.codewars.models.ChallengeDetails
 import com.eateasily.codewars.models.User
 import com.eateasily.codewars.models.UserChallenge
 import retrofit2.http.GET
@@ -12,14 +14,19 @@ interface NetworkService {
     suspend fun searchUser(@Path("query") query: String): User
 
     @GET("users/{user}/code-challenges/completed")
-    suspend fun getCompletedChallenges(
+    suspend fun getCompletedChallenge(
         @Path("user") user: String,
         @Query("page") page: Int
     ): UserChallenge
 
     @GET("users/{user}/code-challenges/authored")
-    suspend fun getAuthoredChallenges(
+    suspend fun getAuthoredChallenge(
         @Path("user") user: String
-    ): UserChallenge
+    ): AuthoredChallenge
+
+    @GET("code-challenges/{challengeId}")
+    suspend fun getChallengeDetails(
+        @Path("challengeId") challengeId: String
+    ): ChallengeDetails
 
 }

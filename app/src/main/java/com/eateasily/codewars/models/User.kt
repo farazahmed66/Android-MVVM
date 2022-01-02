@@ -12,7 +12,7 @@ data class User(
     @field:Json(name = "leaderboardPosition") val leaderboardPosition: Int?,
     @field:Json(name = "skills") val skills: List<String>?,
     @field:Json(name = "ranks") val ranks: Ranks,
-    @field:Json(name = "getCompletedChallenges") val codeChallenges: CodeChallenges?,
+    @field:Json(name = "getCompletedChallenge") val codeChallenges: CodeChallenges?,
     @field:Json(name = "Success", ignore = true) var isSuccess: Boolean = true,
     @field:Json(name = "reason", ignore = true) val reason: String = ""
 ) {

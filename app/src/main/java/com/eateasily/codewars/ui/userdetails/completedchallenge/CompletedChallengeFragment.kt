@@ -1,5 +1,6 @@
 package com.eateasily.codewars.ui.userdetails.completedchallenge
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eateasily.codewars.databinding.FragmentCompletedChallengeBinding
+import com.eateasily.codewars.models.UserChallengeData
+import com.eateasily.codewars.ui.challengedetails.ChallengeDetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +22,7 @@ import java.text.SimpleDateFormat
 
 
 @AndroidEntryPoint
-class CompletedChallengeFragment : Fragment() {
+class CompletedChallengeFragment : Fragment(), CompletedAdapterClickListener {
 
     private var _binding: FragmentCompletedChallengeBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +31,7 @@ class CompletedChallengeFragment : Fragment() {
     private lateinit var userName: String
     private var searchJob: Job? = null
     private val adapter =
-        CompletedChallengeAdapter { name: String -> snackBarClickedPlayer(name) }
+        CompletedChallengeAdapter { this }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,20 +54,20 @@ class CompletedChallengeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initUi()
+
+    }
+
+    @ExperimentalPagingApi
+    private fun initUi() {
         setUpAdapter()
         startSearchJob()
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             adapter.refresh()
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
-
-    private fun snackBarClickedPlayer(name: String) {
-//        val parentLayout = findViewById<View>(android.R.id.content)
-//        Snackbar.make(parentLayout, name, Snackbar.LENGTH_LONG)
-//            .show()
-    }
-
 
     @ExperimentalPagingApi
     private fun startSearchJob() {
@@ -83,7 +86,6 @@ class CompletedChallengeFragment : Fragment() {
         binding.rcvCompletedChallenge.apply {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-//            addItemDecoration(RecyclerViewItemDecoration())
         }
         binding.rcvCompletedChallenge.adapter = adapter.withLoadStateFooter(
             footer = CompletedLoadingStateAdapter { retry() }
@@ -94,12 +96,11 @@ class CompletedChallengeFragment : Fragment() {
             if (loadState.mediator?.refresh is LoadState.Loading) {
 
                 if (adapter.snapshot().isEmpty()) {
-//                    binding.progress.isVisible = true
+                    binding.progressBar.visibility = View.VISIBLE
                 }
-//                binding.errorTxt.isVisible = false
-
+                binding.txvError.visibility = View.GONE
             } else {
-//                binding.progress.isVisible = false
+                binding.progressBar.visibility = View.GONE
                 binding.swipeRefreshLayout.isRefreshing = false
 
                 val error = when {
@@ -111,12 +112,10 @@ class CompletedChallengeFragment : Fragment() {
                 }
                 error?.let {
                     if (adapter.snapshot().isEmpty()) {
-//                        binding.errorTxt.isVisible = true
-//                        binding.errorTxt.text = it.error.localizedMessage
+                        binding.txvError.visibility = View.VISIBLE
+                        binding.txvError.text = it.error.localizedMessage
                     }
-
                 }
-
             }
         }
     }
@@ -131,4 +130,14 @@ class CompletedChallengeFragment : Fragment() {
         adapter.retry()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun itemClicked(data: UserChallengeData) {
+        val intent = Intent(this.context, ChallengeDetailsActivity::class.java)
+        intent.putExtra("challenge_id", data.id)
+        startActivity(intent)
+    }
 }

@@ -8,7 +8,7 @@ import com.eateasily.codewars.models.UserChallengeData
 
 @Database(
     entities = [RemoteKeys::class, UserChallengeData::class],
-    version = 1000,
+    version = 1002,
     exportSchema = true
 )
 //@TypeConverters(value = [TypeResponseConvertor::class])

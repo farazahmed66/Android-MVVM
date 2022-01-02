@@ -43,8 +43,8 @@ class UserRemoteMediator(
         val page: Int = key?.nextKey ?: 0
 
         try {
-            val apiResponse = service.getCompletedChallenges(userName, page)
-            val playersList = apiResponse.data
+            val apiResponse = service.getCompletedChallenge(userName, page)
+            val challengeList = apiResponse.data
 
             val endOfPaginationReached = apiResponse.totalPages == page
 
@@ -58,7 +58,7 @@ class UserRemoteMediator(
                         isEndReached = endOfPaginationReached
                     )
                 )
-                db.starWarsDao().insertMultipleUsers(playersList!!)
+                db.starWarsDao().insertMultipleUsers(challengeList!!)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {

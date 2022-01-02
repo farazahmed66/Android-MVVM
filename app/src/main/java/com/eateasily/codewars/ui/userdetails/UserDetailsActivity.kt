@@ -1,25 +1,19 @@
 package com.eateasily.codewars.ui.userdetails
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
 import com.eateasily.codewars.R
+import com.eateasily.codewars.base.BaseActivity
 import com.eateasily.codewars.databinding.ActivityUserDetailsBinding
-import com.eateasily.codewars.network.Resource
 import com.eateasily.codewars.ui.userdetails.authoredchallenge.AuthoredChallengeFragment
 import com.eateasily.codewars.ui.userdetails.completedchallenge.CompletedChallengeFragment
-import com.eateasily.codewars.ui.users.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-
-
-
 @AndroidEntryPoint
-class UserDetailsActivity : AppCompatActivity() {
+class UserDetailsActivity : BaseActivity() {
 
     private val viewModel: UserDetailsViewModel by viewModels()
 
@@ -33,6 +27,15 @@ class UserDetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mUserName = intent.getStringExtra("userName")!!
+
+        initUi()
+
+    }
+
+    private fun initUi() {
+        showContents()
+        setToolbarVisible(true)
+        setToolbarTitle(mUserName)
 
         bottomNavigation()
 
@@ -50,8 +53,8 @@ class UserDetailsActivity : AppCompatActivity() {
 
     private fun bottomNavigation() {
 
-        binding.bottomNavigation.setOnItemSelectedListener{ menuItem ->
-            when(menuItem.itemId){
+        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
                 R.id.action_completed -> {
                     val fragment: Fragment = CompletedChallengeFragment()
                     navigate(fragment)
@@ -62,7 +65,6 @@ class UserDetailsActivity : AppCompatActivity() {
                     navigate(fragment)
                 }
             }
-
             return@setOnItemSelectedListener true
         }
     }
@@ -70,10 +72,14 @@ class UserDetailsActivity : AppCompatActivity() {
     private fun navigate(fragment: Fragment) {
         val fragmentManager: FragmentManager = supportFragmentManager
         val bundle = Bundle()
-        bundle.putString("userName", mUserName);
+        bundle.putString("userName", mUserName)
         fragment.arguments = bundle
 
         fragmentManager.beginTransaction()
             .replace(R.id.frame_layout, fragment).commit()
+    }
+
+    override fun tryAgain() {
+
     }
 }

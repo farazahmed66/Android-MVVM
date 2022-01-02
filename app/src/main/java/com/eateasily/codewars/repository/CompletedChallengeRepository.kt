@@ -5,6 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.eateasily.codewars.base.BaseRepository
+import com.eateasily.codewars.datasource.ChallengeDataSource
 import com.eateasily.codewars.models.UserChallengeData
 import com.eateasily.codewars.network.NetworkService
 import com.eateasily.codewars.persistence.AppDatabase
@@ -16,8 +17,6 @@ class CompletedChallengeRepository @Inject constructor(
     private val networkService: NetworkService,
     private val db: AppDatabase
 ) : BaseRepository() {
-
-    private val pagingSourceFactory = { db.starWarsDao().getUsers() }
 
     @ExperimentalPagingApi
     fun getCompletedChallenge(userName: String): Flow<PagingData<UserChallengeData>> {
@@ -31,11 +30,11 @@ class CompletedChallengeRepository @Inject constructor(
                 db,
                 userName
             ),
-            pagingSourceFactory = pagingSourceFactory
+            pagingSourceFactory =  { ChallengeDataSource(networkService, userName)}
         ).flow
     }
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 25
+        private const val NETWORK_PAGE_SIZE = 200
     }
 }

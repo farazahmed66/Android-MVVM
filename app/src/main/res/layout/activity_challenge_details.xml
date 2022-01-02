@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:padding="@dimen/_10sdp"
+    tools:context=".ui.challengedetails.ChallengeDetailsActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txv_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/name"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txv_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_name_text"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/desc"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_name_text" />
+
+        <TextView
+            android:id="@+id/txv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_desc_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_name_text"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_category_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/category"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_desc" />
+
+        <TextView
+            android:id="@+id/txv_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_category_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_desc"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_languages_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/languages"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_category" />
+
+        <TextView
+            android:id="@+id/txv_languages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_languages_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_category"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_created_by_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/created_by"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_languages" />
+
+        <TextView
+            android:id="@+id/txv_created_by"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_created_by_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_languages"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_created_at_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/created_at"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_created_by" />
+
+        <TextView
+            android:id="@+id/txv_created_at"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_created_at_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_created_by"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_approved_by_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/approved_by"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_created_at" />
+
+        <TextView
+            android:id="@+id/txv_approved_by"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_approved_by_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_created_at"
+            tools:text="Completed" />
+
+        <TextView
+            android:id="@+id/txv_approved_at_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:text="@string/approved_at"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txv_approved_by_text" />
+
+        <TextView
+            android:id="@+id/txv_approved_at"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingVertical="2dp"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintStart_toEndOf="@id/txv_approved_at_text"
+            app:layout_constraintTop_toBottomOf="@id/txv_approved_by_text"
+            tools:text="Completed" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
