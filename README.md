@@ -9,4 +9,18 @@ In search user screen, the user search for a particular user where the input of 
 
 On successful response based from the data the record will be shown. On clicking to record the user will be navigated to next screen where it shows list of user challenges.
 
-In that screen the api will be called for challenge list with pagination. On selecting challenge the new screen will be shown for challenge details 
+In that screen the api will be called for challenge list where the pagination has been implemented using Paging 3. On selecting challenge the new screen will be shown for challenge details.
+
+
+### Libraries Used in this project
+
+Paging 3
+Room Db
+Dagger Hilt
+MVVM
+Kotlin Flow
+Coroutines
+Moshi
+persistentsearchview
+
+
