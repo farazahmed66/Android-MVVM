@@ -15,13 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CodeWars">
         <activity
-            android:name=".ui.challengedetails.ChallengeDetailsActivity"
+            android:name=".presentation.ui.challengedetails.ChallengeDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.userdetails.UserDetailsActivity"
+            android:name=".presentation.ui.userdetails.UserDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.users.UserListActivity"
+            android:name=".presentation.ui.users.UserListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

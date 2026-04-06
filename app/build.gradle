@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace "com.eateasily.codewars"
+    namespace "com.faraz.codewars"
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.eateasily.codewars"
+        applicationId "com.faraz.codewars"
         minSdk 24
         targetSdk 36
         versionCode 1
