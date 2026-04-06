@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eateasily.codewars.R
 import com.eateasily.codewars.databinding.FragmentAuthoredChallengeBinding
-import com.eateasily.codewars.models.AuthoredChallengeData
-import com.eateasily.codewars.network.Resource
+import com.eateasily.codewars.domain.Resource
+import com.eateasily.codewars.domain.model.AuthoredChallengeData
 import com.eateasily.codewars.ui.challengedetails.ChallengeDetailsActivity
+import com.eateasily.codewars.ui.userdetails.UserDetailsActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +35,7 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            userName = it.getString("userName")!!
+            userName = it.getString(UserDetailsActivity.EXTRA_USER_NAME) ?: ""
         }
     }
 
@@ -57,41 +61,45 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.getAuthoredChallenge(userName)
-            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
     private fun observeData() {
-        lifecycleScope.launchWhenCreated {
-
-            viewModel.getAuthoredChallengeResponse.collect { res ->
-                when (res) {
-                    is Resource.Success -> {
-                        if (res.value.authoredChallengeData.isNotEmpty()) {
-                            binding.progressBar.visibility = View.GONE
-                            binding.txvError.visibility = View.GONE
-                            binding.rcvAuthoredChallenge.visibility = View.VISIBLE
-                            authoredChallengeAdapter.differ.submitList(res.value.authoredChallengeData.reversed())
-                        } else {
-                            binding.progressBar.visibility = View.GONE
-                            binding.txvError.visibility = View.VISIBLE
-                            binding.rcvAuthoredChallenge.visibility = View.GONE
-                            Snackbar.make(
-                                binding.root,
-                                getString(R.string.no_data),
-                                Snackbar.LENGTH_LONG
-                            ).show()
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getAuthoredChallengeResponse.collect { res ->
+                    when (res) {
+                        is Resource.Success -> {
+                            binding.swipeRefreshLayout.isRefreshing = false
+                            if (res.value.isNotEmpty()) {
+                                binding.progressBar.visibility = View.GONE
+                                binding.txvError.visibility = View.GONE
+                                binding.rcvAuthoredChallenge.visibility = View.VISIBLE
+                                authoredChallengeAdapter.differ.submitList(res.value.reversed())
+                            } else {
+                                binding.progressBar.visibility = View.GONE
+                                binding.txvError.visibility = View.VISIBLE
+                                binding.rcvAuthoredChallenge.visibility = View.GONE
+                                Snackbar.make(binding.root, getString(R.string.no_data), Snackbar.LENGTH_LONG).show()
+                            }
                         }
-                    }
-
-                    is Resource.Failure -> {
-                        setError(res)
-                    }
-                    Resource.Loading -> {
-                        setLoading()
-                    }
-                    else -> {
-
+                        is Resource.Failure -> {
+                            binding.swipeRefreshLayout.isRefreshing = false
+                            if (authoredChallengeAdapter.differ.currentList.isEmpty()) {
+                                setError(res)
+                            } else {
+                                val message = if (res.isNetworkError) getString(R.string.no_internet)
+                                              else getString(R.string.something_went_wrong)
+                                Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+                            }
+                        }
+                        Resource.Loading -> {
+                            // Only show full-screen spinner on the initial load (empty list)
+                            if (authoredChallengeAdapter.differ.currentList.isEmpty()) {
+                                setLoading()
+                            }
+                        }
+                        else -> {}
                     }
                 }
             }
@@ -105,7 +113,7 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
     }
 
     private fun setupRecyclerView() {
-        authoredChallengeAdapter = AuthoredChallengeAdapter { this }
+        authoredChallengeAdapter = AuthoredChallengeAdapter(this)
         binding.rcvAuthoredChallenge.apply {
             adapter = authoredChallengeAdapter
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -135,7 +143,7 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
 
     override fun itemClicked(data: AuthoredChallengeData) {
         val intent = Intent(this.context, ChallengeDetailsActivity::class.java)
-        intent.putExtra("challenge_id", data.id)
+        intent.putExtra(ChallengeDetailsActivity.EXTRA_CHALLENGE_ID, data.id)
         startActivity(intent)
     }
 

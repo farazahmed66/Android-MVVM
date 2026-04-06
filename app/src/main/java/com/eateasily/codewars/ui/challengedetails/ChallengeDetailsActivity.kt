@@ -3,21 +3,29 @@ package com.eateasily.codewars.ui.challengedetails
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.launch
 import com.eateasily.codewars.R
-import com.eateasily.codewars.base.BaseActivity
 import com.eateasily.codewars.databinding.ActivityChallengeDetailsBinding
-import com.eateasily.codewars.models.ChallengeDetails
-import com.eateasily.codewars.network.Resource
+import com.eateasily.codewars.domain.Resource
+import com.eateasily.codewars.domain.model.ChallengeDetails
+import com.eateasily.codewars.presentation.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChallengeDetailsActivity : BaseActivity() {
 
+    companion object {
+        const val EXTRA_CHALLENGE_ID = "challenge_id"
+    }
+
     private lateinit var binding: ActivityChallengeDetailsBinding
 
     private val viewModel: ChallengeDetailsViewModel by viewModels()
     private lateinit var mChallengeId: String
+    private var isDataLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +33,7 @@ class ChallengeDetailsActivity : BaseActivity() {
         binding = ActivityChallengeDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mChallengeId = intent.getStringExtra("challenge_id")!!
+        mChallengeId = intent.getStringExtra(EXTRA_CHALLENGE_ID) ?: run { finish(); return }
 
         initUi()
     }
@@ -40,24 +48,22 @@ class ChallengeDetailsActivity : BaseActivity() {
     }
 
     private fun observeData() {
-        lifecycleScope.launchWhenCreated {
-
-            viewModel.getChallengeDataResponse.collect { res ->
-                when (res) {
-                    is Resource.Success -> {
-
-                        setResponse(res.value)
-                        showContents()
-                    }
-                    is Resource.Failure -> {
-                        showError(res)
-                    }
-
-                    is Resource.Loading -> {
-                        showProgressBar()
-                    }
-                    else -> {
-
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.getChallengeDataResponse.collect { res ->
+                    when (res) {
+                        is Resource.Success -> {
+                            isDataLoaded = true
+                            setResponse(res.value)
+                            showContents()
+                        }
+                        is Resource.Failure -> {
+                            if (!isDataLoaded) showError(res) else showSnackbarError(res)
+                        }
+                        is Resource.Loading -> {
+                            if (!isDataLoaded) showProgressBar()
+                        }
+                        else -> {}
                     }
                 }
             }
@@ -70,11 +76,11 @@ class ChallengeDetailsActivity : BaseActivity() {
         binding.txvName.text = challengeDetails.name
         binding.txvDesc.text = challengeDetails.description
         binding.txvCategory.text = challengeDetails.category
-        binding.txvLanguages.text = challengeDetails.languages?.joinToString { ", " }
-        binding.txvCreatedBy.text = challengeDetails.createdBy?.username
-        binding.txvCreatedAt.text = challengeDetails.createdAt
-        binding.txvApprovedBy.text = challengeDetails.approvedBy?.username
-        binding.txvApprovedAt.text = challengeDetails.approvedAt
+        binding.txvLanguages.text = challengeDetails.languages?.joinToString(", ") ?: ""
+        binding.txvCreatedBy.text = challengeDetails.createdBy?.username ?: ""
+        binding.txvCreatedAt.text = challengeDetails.createdAt ?: ""
+        binding.txvApprovedBy.text = challengeDetails.approvedBy?.username ?: ""
+        binding.txvApprovedAt.text = challengeDetails.approvedAt ?: ""
 
     }
 

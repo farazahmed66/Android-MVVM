@@ -1,7 +1,7 @@
 package com.eateasily.codewars.ui.userdetails.completedchallenge
 
-import com.eateasily.codewars.models.UserChallengeData
+import com.eateasily.codewars.domain.model.CompletedChallenge
 
 interface CompletedAdapterClickListener {
-    fun itemClicked(data: UserChallengeData)
+    fun itemClicked(data: CompletedChallenge)
 }

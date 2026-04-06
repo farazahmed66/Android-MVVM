@@ -1,14 +1,16 @@
 package com.eateasily.codewars.di
 
-import com.eateasily.codewars.network.HttpRequestInterceptor
-import com.eateasily.codewars.network.NetworkService
-import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
+import com.eateasily.codewars.BuildConfig
+import com.eateasily.codewars.data.remote.HttpRequestInterceptor
+import com.eateasily.codewars.data.remote.NetworkService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -22,22 +24,24 @@ object NetworkModule {
     fun provideOkHttpClient(): OkHttpClient {
 
         val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
         return OkHttpClient.Builder()
             .addInterceptor(HttpRequestInterceptor())
             .addInterceptor(interceptor)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://www.codewars.com/api/v1/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 

@@ -6,25 +6,20 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eateasily.codewars.databinding.ChallengeItemBinding
-import com.eateasily.codewars.models.UserChallengeData
+import com.eateasily.codewars.domain.model.CompletedChallenge
 
-class CompletedChallengeAdapter(private val listener: () -> CompletedAdapterClickListener) :
-    PagingDataAdapter<UserChallengeData, CompletedChallengeAdapter.ChallengeViewHolder>(
+class CompletedChallengeAdapter(private val listener: CompletedAdapterClickListener) :
+    PagingDataAdapter<CompletedChallenge, CompletedChallengeAdapter.ChallengeViewHolder>(
         ChallengeDiffCallback()
     ) {
 
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
-        val data = getItem(position)
-
-        holder.bind(data)
+        holder.bind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeViewHolder {
-
         return ChallengeViewHolder(
-            ChallengeItemBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false
-            )
+            ChallengeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -32,33 +27,21 @@ class CompletedChallengeAdapter(private val listener: () -> CompletedAdapterClic
         private val binding: ChallengeItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: UserChallengeData?) {
-
+        fun bind(data: CompletedChallenge?) {
             binding.txvName.text = data?.name
             binding.txvCompleted.text = data?.completedAt
             binding.txvSlug.text = data?.slug
-
             binding.root.setOnClickListener {
-                listener.invoke().itemClicked(data!!)
+                data?.let { listener.itemClicked(it) }
             }
-
         }
     }
 
-    private class ChallengeDiffCallback : DiffUtil.ItemCallback<UserChallengeData>() {
-        override fun areItemsTheSame(
-            oldItem: UserChallengeData,
-            newItem: UserChallengeData
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
+    private class ChallengeDiffCallback : DiffUtil.ItemCallback<CompletedChallenge>() {
+        override fun areItemsTheSame(oldItem: CompletedChallenge, newItem: CompletedChallenge) =
+            oldItem.id == newItem.id
 
-        override fun areContentsTheSame(
-            oldItem: UserChallengeData,
-            newItem: UserChallengeData
-        ): Boolean {
-            return oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: CompletedChallenge, newItem: CompletedChallenge) =
+            oldItem == newItem
     }
-
 }

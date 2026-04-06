@@ -2,9 +2,11 @@ package com.eateasily.codewars.di
 
 import android.app.Application
 import androidx.room.Room
-import com.eateasily.codewars.persistence.AppDatabase
-import com.eateasily.codewars.persistence.StarWarsDao
-import com.eateasily.codewars.persistence.TypeResponseConvertor
+import com.eateasily.codewars.data.local.AppDatabase
+import com.eateasily.codewars.data.local.dao.AuthoredChallengeCacheDao
+import com.eateasily.codewars.data.local.dao.ChallengeDetailsCacheDao
+import com.eateasily.codewars.data.local.dao.CompletedChallengeDao
+import com.eateasily.codewars.data.local.dao.UserCacheDao
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -27,20 +29,33 @@ object PersistenceModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(
-        application: Application,
-//        typeResponseConverter: TypeResponseConvertor
-    ): AppDatabase {
+    fun provideAppDatabase(application: Application): AppDatabase {
         return Room
-            .databaseBuilder(application, AppDatabase::class.java, "StarWars.db")
-            .fallbackToDestructiveMigration()
-//            .addTypeConverter(typeResponseConverter)
+            .databaseBuilder(application, AppDatabase::class.java, "CodeWars.db")
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideStarWarsDao(appDatabase: AppDatabase): StarWarsDao {
-        return appDatabase.starWarsDao()
+    fun provideCompletedChallengeDao(appDatabase: AppDatabase): CompletedChallengeDao {
+        return appDatabase.completedChallengeDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthoredChallengeCacheDao(appDatabase: AppDatabase): AuthoredChallengeCacheDao {
+        return appDatabase.authoredChallengeCacheDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideChallengeDetailsCacheDao(appDatabase: AppDatabase): ChallengeDetailsCacheDao {
+        return appDatabase.challengeDetailsCacheDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserCacheDao(appDatabase: AppDatabase): UserCacheDao {
+        return appDatabase.userCacheDao()
     }
 }

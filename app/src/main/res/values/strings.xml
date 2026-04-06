@@ -2,6 +2,13 @@
     <string name="app_name">CodeWars</string>
 
     <string name="name">Name: </string>
+    <string name="label_name">Name: %s</string>
+    <string name="clan">Clan: </string>
+    <string name="label_clan">Clan: %s</string>
+    <string name="honor">Honor: </string>
+    <string name="label_honor">Honor: %s</string>
+    <string name="position">Position: </string>
+    <string name="label_position">Position: %d</string>
     <string name="desc">Desc: </string>
     <string name="category">Category: </string>
     <string name="languages">Languages: </string>
