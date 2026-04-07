@@ -96,9 +96,11 @@ class UserListActivity : BaseActivity() {
     }
 
     private fun setResponse(user: User) {
+        val displayName = user.name.takeUnless { it.isNullOrEmpty() } ?: user.userName
+
         binding.cardUser.visibility = View.VISIBLE
         binding.txvNoUser.visibility = View.GONE
-        binding.txvName.text = getString(R.string.label_name, user.name)
+        binding.txvName.text = getString(R.string.label_name, displayName)
         binding.txvClan.text = getString(R.string.label_clan, user.clan)
         binding.txvHonor.text = getString(R.string.label_honor, user.honor)
         binding.txvPosition.text = getString(R.string.label_position, user.leaderboardPosition)

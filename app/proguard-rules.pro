@@ -48,8 +48,8 @@
 -dontwarn dagger.**
 
 # ---- Domain & DTO models (Moshi serializes these) ----
--keep class com.eateasily.codewars.data.remote.dto.** { *; }
--keep class com.eateasily.codewars.domain.model.** { *; }
+-keep class com.faraz.codewars.data.remote.dto.** { *; }
+-keep class com.faraz.codewars.domain.model.** { *; }
 
 # ---- Coroutines ----
 -dontwarn kotlinx.coroutines.**

@@ -1,6 +1,7 @@
 package com.faraz.codewars.domain
 
-sealed class Resource<out T> {
+sealed class
+Resource<out T> {
 
     data class Success<out T>(val value: T) : Resource<T>()
 

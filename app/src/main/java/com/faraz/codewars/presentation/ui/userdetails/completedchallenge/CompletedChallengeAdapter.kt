@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.faraz.codewars.databinding.ChallengeItemBinding
 import com.faraz.codewars.domain.model.CompletedChallenge
+import com.faraz.codewars.presentation.util.toReadableDate
 
 class CompletedChallengeAdapter(private val listener: CompletedAdapterClickListener) :
     PagingDataAdapter<CompletedChallenge, CompletedChallengeAdapter.ChallengeViewHolder>(
@@ -29,7 +30,7 @@ class CompletedChallengeAdapter(private val listener: CompletedAdapterClickListe
 
         fun bind(data: CompletedChallenge?) {
             binding.txvName.text = data?.name
-            binding.txvCompleted.text = data?.completedAt
+            binding.txvCompleted.text = data?.completedAt.toReadableDate()
             binding.txvSlug.text = data?.slug
             binding.root.setOnClickListener {
                 data?.let { listener.itemClicked(it) }
