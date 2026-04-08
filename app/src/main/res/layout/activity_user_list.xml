@@ -17,12 +17,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- User Profile Card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginHorizontal="16dp"
         android:visibility="gone"
         app:cardCornerRadius="16dp"
         app:cardElevation="6dp"
@@ -33,119 +32,285 @@
         app:strokeColor="@color/strokeCard"
         app:strokeWidth="1dp">
 
-        <!-- Dark header strip -->
         <LinearLayout
-            android:id="@+id/card_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgHeaderStrip"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/_16sdp"
-            android:paddingVertical="@dimen/_14sdp">
+            android:orientation="vertical">
 
+            <!-- Header strip -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@color/bgHeaderStrip"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp">
 
-                <TextView
-                    android:id="@+id/txv_name"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textOnPrimary"
+                        android:textSize="16sp"
+                        tools:text="g964" />
+
+                    <TextView
+                        android:id="@+id/txv_clan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/textOnPrimaryMuted"
+                        android:textSize="11sp"
+                        tools:text="None" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/textOnPrimary"
-                    android:textSize="@dimen/_16ssp"
-                    tools:text="Name: g964" />
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/txv_clan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/textOnPrimaryMuted"
-                    android:textSize="@dimen/_11ssp"
-                    tools:text="Clan: Warriors" />
+                    <TextView
+                        android:id="@+id/txv_rank_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_rank_badge"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="1 kyu" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_navigate_next"
+                        app:tint="@color/textOnPrimaryMuted" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_navigate_next"
-                app:tint="@color/textOnPrimaryMuted" />
-
-        </LinearLayout>
-
-        <!-- Stats row -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:background="@color/bgCard"
-            android:orientation="horizontal">
-
-            <!-- Honor -->
+            <!-- Primary stats: Honor | Rank | Score -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/_14sdp">
+                android:background="@color/bgCard"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="HONOR"
-                    android:textColor="@color/textSecondary"
-                    android:textSize="@dimen/_9ssp"
-                    android:letterSpacing="0.08" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
 
-                <TextView
-                    android:id="@+id/txv_honor"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="HONOR"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txv_honor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorHonor"
+                        android:textSize="14sp"
+                        tools:text="485,205" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/colorHonor"
-                    android:textSize="@dimen/_14ssp"
-                    tools:text="2340" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="RANK"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txv_position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="14sp"
+                        tools:text="#1" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="SCORE"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txv_score"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="14sp"
+                        tools:text="30,476" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="@color/dividerColor" />
 
-            <!-- Position -->
+            <!-- Secondary stats: Completed | Authored -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:background="@color/bgCard"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="COMPLETED"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txv_completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/colorSuccess"
+                        android:textSize="14sp"
+                        tools:text="2,644" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:letterSpacing="0.08"
+                        android:text="AUTHORED"
+                        android:textColor="@color/textSecondary"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/txv_authored"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/textAccent"
+                        android:textSize="14sp"
+                        tools:text="147" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/dividerColor" />
+
+            <!-- Top languages -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bgCard"
                 android:orientation="vertical"
-                android:paddingVertical="@dimen/_14sdp">
+                android:paddingHorizontal="16dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="RANK"
+                    android:letterSpacing="0.08"
+                    android:text="TOP LANGUAGES"
                     android:textColor="@color/textSecondary"
-                    android:textSize="@dimen/_9ssp"
-                    android:letterSpacing="0.08" />
+                    android:textSize="9sp" />
 
-                <TextView
-                    android:id="@+id/txv_position"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_languages"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="@dimen/_14ssp"
-                    tools:text="#12" />
+                    android:layout_marginTop="8dp"
+                    app:chipSpacingHorizontal="6dp"
+                    app:chipSpacingVertical="4dp"
+                    app:singleLine="false" />
 
             </LinearLayout>
 
@@ -159,7 +324,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/textSecondary"
-        android:textSize="@dimen/_13ssp"
+        android:textSize="13sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

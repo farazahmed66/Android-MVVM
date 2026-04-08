@@ -14,7 +14,8 @@ fun UserDto.toDomain(): User = User(
     skills = skills,
     overallRank = ranks.overall.toDomain(),
     languageRanks = ranks.languages.mapValues { it.value.toDomain() },
-    codeChallengesAuthored = codeChallenges?.totalAuthored
+    totalAuthored = codeChallenges?.totalAuthored,
+    totalCompleted = codeChallenges?.totalCompleted
 )
 
 fun OverallDto.toDomain(): RankInfo = RankInfo(

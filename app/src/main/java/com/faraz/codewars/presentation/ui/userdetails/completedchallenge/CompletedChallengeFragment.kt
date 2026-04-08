@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.faraz.codewars.R
 import com.faraz.codewars.databinding.FragmentCompletedChallengeBinding
 import com.faraz.codewars.domain.model.CompletedChallenge
 import com.faraz.codewars.presentation.ui.challengedetails.ChallengeDetailsActivity
@@ -99,7 +100,7 @@ class CompletedChallengeFragment : Fragment(), CompletedAdapterClickListener {
                         error?.let {
                             if (adapter.snapshot().isEmpty()) {
                                 b.txvError.visibility = View.VISIBLE
-                                b.txvError.text = it.error.localizedMessage
+                                b.txvError.text = getString(R.string.something_went_wrong)
                             }
                         }
                     }

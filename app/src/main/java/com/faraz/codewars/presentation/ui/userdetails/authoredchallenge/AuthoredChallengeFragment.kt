@@ -18,6 +18,7 @@ import com.faraz.codewars.domain.Resource
 import com.faraz.codewars.domain.model.AuthoredChallengeData
 import com.faraz.codewars.presentation.ui.challengedetails.ChallengeDetailsActivity
 import com.faraz.codewars.presentation.ui.userdetails.UserDetailsActivity
+import com.faraz.codewars.presentation.util.toMessage
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -88,9 +89,7 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
                             if (authoredChallengeAdapter.differ.currentList.isEmpty()) {
                                 setError(res)
                             } else {
-                                val message = if (res.isNetworkError) getString(R.string.no_internet)
-                                              else getString(R.string.something_went_wrong)
-                                Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+                                Snackbar.make(binding.root, res.toMessage(requireContext()), Snackbar.LENGTH_LONG).show()
                             }
                         }
                         Resource.Loading -> {
@@ -124,21 +123,13 @@ class AuthoredChallengeFragment : Fragment(), AuthoredAdapterClickListener {
         binding.progressBar.visibility = View.GONE
         binding.txvError.visibility = View.VISIBLE
         binding.rcvAuthoredChallenge.visibility = View.GONE
-        if (res.isNetworkError) {
-            Snackbar.make(binding.root, getString(R.string.no_internet), Snackbar.LENGTH_LONG)
-                .show()
-        } else {
-            Snackbar.make(
-                binding.root,
-                getText(R.string.something_went_wrong),
-                Snackbar.LENGTH_LONG
-            ).show()
-        }
+        Snackbar.make(binding.root, res.toMessage(requireContext()), Snackbar.LENGTH_LONG).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        binding.rcvAuthoredChallenge.adapter = null
         _binding = null
+        super.onDestroyView()
     }
 
     override fun itemClicked(data: AuthoredChallengeData) {

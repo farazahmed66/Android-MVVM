@@ -1,10 +1,10 @@
 package com.faraz.codewars.data.repository
 
-import com.faraz.codewars.data.networkBoundResource
 import com.faraz.codewars.data.local.isExpired
 import com.faraz.codewars.data.local.dao.UserCacheDao
 import com.faraz.codewars.data.local.entity.UserCacheEntity
 import com.faraz.codewars.data.mapper.toDomain
+import com.faraz.codewars.data.networkBoundResource
 import com.faraz.codewars.data.remote.NetworkService
 import com.faraz.codewars.data.remote.dto.UserDto
 import com.faraz.codewars.domain.Resource

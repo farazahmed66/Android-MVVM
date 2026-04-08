@@ -29,6 +29,12 @@
     <color name="colorError">#EF4444</color>
     <color name="colorSuccess">#10B981</color>
 
+    <!-- Rank colors (CodeWars kyu color system) -->
+    <color name="colorRankWhite">#9B9B9B</color>
+    <color name="colorRankYellow">#ECB613</color>
+    <color name="colorRankBlue">#3C7EBB</color>
+    <color name="colorRankPurple">#866CC7</color>
+
     <!-- Legacy aliases kept for PersistentSearchView + existing code -->
     <color name="contentContainerColor">#F4F6FA</color>
     <color name="cardBackgroundColor">#FFFFFF</color>

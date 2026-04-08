@@ -16,12 +16,12 @@ class UserMapperTest {
     private val userDto = UserDto(
         userName = "g964",
         name = "GG",
-        honor = "2340",
+        honor = 2340,
         clan = "Clan X",
         leaderboardPosition = 5,
         skills = listOf("kotlin", "java"),
         ranks = RanksDto(overall = overallDto, languages = mapOf("kotlin" to languageDto)),
-        codeChallenges = CodeChallengesDto(totalAuthored = 10)
+        codeChallenges = CodeChallengesDto(totalAuthored = 10, totalCompleted = 150)
     )
 
     @Test
@@ -46,13 +46,16 @@ class UserMapperTest {
     }
 
     @Test
-    fun `maps codeChallengesAuthored correctly`() {
-        assertEquals(10L, userDto.toDomain().codeChallengesAuthored)
+    fun `maps codeChallenges correctly`() {
+        val domain = userDto.toDomain()
+        assertEquals(10, domain.totalAuthored)
+        assertEquals(150, domain.totalCompleted)
     }
 
     @Test
-    fun `maps null codeChallenges to null authored count`() {
+    fun `maps null codeChallenges to null`() {
         val dto = userDto.copy(codeChallenges = null)
-        assertNull(dto.toDomain().codeChallengesAuthored)
+        assertNull(dto.toDomain().totalAuthored)
+        assertNull(dto.toDomain().totalCompleted)
     }
 }

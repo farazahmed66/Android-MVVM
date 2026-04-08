@@ -50,37 +50,8 @@ inline fun <Remote, Domain> networkBoundResource(
     }
 }
 
-inline fun <T> networkBoundResource(
-    crossinline query: suspend () -> T?,
-    crossinline fetch: suspend () -> T,
-    crossinline saveFetchResult: suspend (T) -> Unit,
-    crossinline shouldFetch: (T?) -> Boolean = { true }
-): Flow<Resource<T>> = flow {
-    emit(Resource.Loading)
-
-    val cached = try { query() } catch (_: Exception) { null }
-
-    if (cached != null) {
-        emit(Resource.Success(cached))
-    }
-
-    if (shouldFetch(cached)) {
-        try {
-            val networkResult = fetch()
-            saveFetchResult(networkResult)
-            emit(Resource.Success(networkResult))
-        } catch (throwable: Throwable) {
-            if (cached == null) {
-                emit(throwable.toFailure())
-            }
-        }
-    } else if (cached == null) {
-        emit(Resource.Empty)
-    }
-}
-
 fun Throwable.toFailure(): Resource.Failure =
     if (this is HttpException)
-        Resource.Failure(false, code(), response()?.errorBody()?.use { it.string() })
+        Resource.Failure(false, code(), null)
     else
         Resource.Failure(true, null, null)

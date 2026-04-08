@@ -7,12 +7,12 @@ import com.squareup.moshi.JsonClass
 data class UserDto(
     @field:Json(name = "username") val userName: String?,
     @field:Json(name = "name") val name: String?,
-    @field:Json(name = "honor") val honor: String?,
+    @field:Json(name = "honor") val honor: Int?,
     @field:Json(name = "clan") val clan: String?,
     @field:Json(name = "leaderboardPosition") val leaderboardPosition: Int?,
     @field:Json(name = "skills") val skills: List<String>?,
     @field:Json(name = "ranks") val ranks: RanksDto,
-    @field:Json(name = "getCompletedChallenge") val codeChallenges: CodeChallengesDto?,
+    @field:Json(name = "codeChallenges") val codeChallenges: CodeChallengesDto?,
     @field:Json(name = "Success", ignore = true) var isSuccess: Boolean = true,
     @field:Json(name = "reason", ignore = true) val reason: String = ""
 )
@@ -33,5 +33,6 @@ data class OverallDto(
 
 @JsonClass(generateAdapter = true)
 data class CodeChallengesDto(
-    @field:Json(name = "totalAuthored") val totalAuthored: Long
+    @field:Json(name = "totalAuthored") val totalAuthored: Int,
+    @field:Json(name = "totalCompleted") val totalCompleted: Int
 )

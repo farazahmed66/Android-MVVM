@@ -7,10 +7,12 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 import com.faraz.codewars.R
 import com.faraz.codewars.databinding.ActivityUserListBinding
 import com.faraz.codewars.domain.Resource
+import com.faraz.codewars.domain.model.RankInfo
 import com.faraz.codewars.domain.model.User
 import com.faraz.codewars.presentation.base.BaseActivity
 import com.faraz.codewars.presentation.ui.userdetails.UserDetailsActivity
@@ -79,7 +81,8 @@ class UserListActivity : BaseActivity() {
                             }
                         }
                         Resource.Loading -> {
-                            if (!isDataLoaded) showProgressBar()
+                            isDataLoaded = false
+                            showProgressBar()
                         }
                         else -> {}
                     }
@@ -100,10 +103,17 @@ class UserListActivity : BaseActivity() {
 
         binding.cardUser.visibility = View.VISIBLE
         binding.txvNoUser.visibility = View.GONE
-        binding.txvName.text = getString(R.string.label_name, displayName)
-        binding.txvClan.text = getString(R.string.label_clan, user.clan)
-        binding.txvHonor.text = getString(R.string.label_honor, user.honor)
-        binding.txvPosition.text = getString(R.string.label_position, user.leaderboardPosition)
+
+        binding.txvName.text = displayName
+        binding.txvClan.text = user.clan.takeUnless { it.isNullOrEmpty() } ?: "—"
+        binding.txvHonor.text = user.honor?.let { "%,d".format(it) } ?: "—"
+        binding.txvPosition.text = user.leaderboardPosition?.let { "#%,d".format(it) } ?: "—"
+        binding.txvScore.text = "%,d".format(user.overallRank.score)
+        binding.txvCompleted.text = user.totalCompleted?.let { "%,d".format(it) } ?: "—"
+        binding.txvAuthored.text = user.totalAuthored?.let { "%,d".format(it) } ?: "—"
+
+        setRankBadge(user.overallRank)
+        setTopLanguages(user.languageRanks)
 
         binding.cardUser.setOnClickListener {
             val userName = user.userName ?: return@setOnClickListener
@@ -111,6 +121,36 @@ class UserListActivity : BaseActivity() {
             intent.putExtra(UserDetailsActivity.EXTRA_USER_NAME, userName)
             startActivity(intent)
         }
+    }
+
+    private fun setRankBadge(rank: RankInfo) {
+        binding.txvRankBadge.text = rank.name
+        val color = rankColor(rank.color)
+        binding.txvRankBadge.background.setTint(color)
+    }
+
+    private fun setTopLanguages(languageRanks: Map<String, RankInfo>) {
+        binding.chipGroupLanguages.removeAllViews()
+        languageRanks.entries
+            .sortedByDescending { it.value.score }
+            .take(6)
+            .forEach { (lang, info) ->
+                val chip = Chip(this).apply {
+                    text = "${lang.replaceFirstChar { it.uppercase() }}  ${info.name}"
+                    textSize = 11f
+                    isClickable = false
+                    setChipBackgroundColorResource(R.color.bgChip)
+                    setTextColor(rankColor(info.color))
+                }
+                binding.chipGroupLanguages.addView(chip)
+            }
+    }
+
+    private fun rankColor(color: String): Int = when (color) {
+        "purple" -> getColor(R.color.colorRankPurple)
+        "blue"   -> getColor(R.color.colorRankBlue)
+        "yellow" -> getColor(R.color.colorRankYellow)
+        else     -> getColor(R.color.colorRankWhite)
     }
 
     override fun tryAgain() {

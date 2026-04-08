@@ -19,6 +19,9 @@
     <string name="no_user_found">No User Found. Try different user.</string>
     <string name="no_internet">Please check your Internet connection and retry</string>
     <string name="something_went_wrong">Something went wrong.</string>
+    <string name="error_too_many_requests">Too many requests. Please wait a moment and retry.</string>
+    <string name="error_server">Server error. Please try again later.</string>
+    <string name="error_forbidden">You do not have permission to access this resource.</string>
     <string name="retry">Retry</string>
     <string name="challenge_details">Challenge Details</string>
     <string name="no_data">No Data Found.</string>

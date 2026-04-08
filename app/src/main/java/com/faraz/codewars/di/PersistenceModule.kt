@@ -32,6 +32,7 @@ object PersistenceModule {
     fun provideAppDatabase(application: Application): AppDatabase {
         return Room
             .databaseBuilder(application, AppDatabase::class.java, "CodeWars.db")
+            .fallbackToDestructiveMigration()
             .build()
     }
 
