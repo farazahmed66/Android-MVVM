@@ -106,7 +106,7 @@ Full kata view showing description, tags, total completions, and rank informatio
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/CodeWars.git
+   git clone https://github.com/farazahmed66/scalable-android-mvvm-app.git
    ```
 2. Open in **Android Studio**
 3. Build and run on a device or emulator (API 21+)
